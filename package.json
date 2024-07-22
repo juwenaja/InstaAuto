@@ -1,0 +1,32 @@
+{
+    "name": "insta-auto",
+    "author": "W3NN",
+    "version": "1.0.0",
+    "description": "Instagram Auto with NodeJS",
+    "main": "Index.js",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/juwenaja/InstaAuto.git"
+    },
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/juwenaja/InstaAuto/issues"
+    },
+    "keywords": [
+      "instagram",
+      "instagram-api",
+      "automation",
+      "login-script"
+    ],
+    "scripts": {
+      "start": "node Index.js"
+    },
+    "dependencies": {
+      "chalk": "^4.1.2",
+      "figlet": "^1.7.0",
+      "fs-extra": "^10.0.0",
+      "inquirer": "^6.5.2",
+      "instagram-private-api": "^1.46.1",
+      "moment": "^2.30.1"
+    }
+  }
