@@ -5,28 +5,29 @@
     "description": "Instagram Auto with NodeJS",
     "main": "Index.js",
     "repository": {
-      "type": "git",
-      "url": "https://github.com/juwenaja/InstaAuto.git"
+        "type": "git",
+        "url": "https://github.com/juwenaja/InstaAuto.git"
     },
     "license": "MIT",
     "bugs": {
-      "url": "https://github.com/juwenaja/InstaAuto/issues"
+        "url": "https://github.com/juwenaja/InstaAuto/issues"
     },
     "keywords": [
-      "instagram",
-      "instagram-api",
-      "automation",
-      "login-script"
+        "instagram",
+        "instagram-api",
+        "automation",
+        "login-script"
     ],
     "scripts": {
-      "start": "node Index.js"
+        "start": "node Index.js"
     },
     "dependencies": {
-      "chalk": "^4.1.2",
-      "figlet": "^1.7.0",
-      "fs-extra": "^10.0.0",
-      "inquirer": "^6.5.2",
-      "instagram-private-api": "^1.46.1",
-      "moment": "^2.30.1"
+        "chalk": "^4.1.2",
+        "figlet": "^1.7.0",
+        "fs-extra": "^10.0.0",
+        "inquirer": "^6.5.2",
+        "instagram-private-api": "^1.46.1",
+        "moment": "^2.30.1",
+        "sharp": "^0.33.4"
     }
-  }
+}

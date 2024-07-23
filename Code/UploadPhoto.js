@@ -3,6 +3,7 @@
 const { IgApiClient } = require('instagram-private-api');
 const fs = require('fs-extra');
 const chalk = require('chalk');
+const sharp = require('sharp');
 
 const account = require('../Database/Account.json');
 const ig = new IgApiClient();
@@ -26,10 +27,17 @@ async function UploadPhoto(photoPath, caption) {
       return;
     }
 
+    // Read and process photo using sharp
+    const processedPhoto = await sharp(photoPath)
+      .resize(1080, 1080, { fit: 'cover' }) // Resize image to meet Instagram's requirements
+      .jpeg()
+      .toBuffer();
+
+    console.log(chalk.blue.bold('> Gambar berhasil diproses.'));
+
     // Upload photo
-    const photoBuffer = await fs.readFile(photoPath);
     const uploadResponse = await ig.publish.photo({
-      file: photoBuffer,
+      file: processedPhoto,
       caption: caption,
     });
 
