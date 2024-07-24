@@ -1,9 +1,9 @@
 "use strict";
 
-const { IgApiClient } = require('instagram-private-api');
 const fs = require('fs-extra');
 const chalk = require('chalk');
 const sharp = require('sharp');
+const { IgApiClient } = require('instagram-private-api');
 
 const account = require('../Database/Account.json');
 const ig = new IgApiClient();
@@ -13,7 +13,6 @@ async function UploadPhoto(photoPath, caption) {
 
   try {
     ig.state.generateDevice(account.Username);
-
     const sessionPath = './Database/Session.json';
 
     // Load session
@@ -52,7 +51,27 @@ async function UploadPhoto(photoPath, caption) {
   } catch (error) {
     console.log(chalk.red.bold('!> Gagal mengupload gambar.'));
     console.error(error);
+
+    if (error.name === 'IgLoginRequiredError') {
+      console.log(chalk.red.bold('> Login diperlukan. Mencoba login ulang...'));
+      await loginAndSaveSession();
+      await UploadPhoto(photoPath, caption); //Retrying upload if new login.
+    }
   }
+}
+
+async function loginAndSaveSession() {
+  ig.state.generateDevice(account.Username);
+  await ig.simulate.preLoginFlow();
+  const loggedInUser = await ig.account.login(account.Username, account.Password);
+  await ig.simulate.postLoginFlow();
+
+  // Save session
+  const sessionPath = './Database/Session.json';
+  const serialized = await ig.state.serialize();
+  delete serialized.constants; // Delete less data
+  await fs.writeJson(sessionPath, serialized);
+  console.log(chalk.green.bold('> Sesi berhasil disimpan.'));
 }
 
 module.exports = { UploadPhoto };

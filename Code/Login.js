@@ -11,19 +11,16 @@ const sessionPath = './Database/Session.json';
 const accountPath = path.resolve(__dirname, '../Database/Account.json');
 
 async function Login() {
-  console.log(chalk.blue('Starting Instagram login script...'));
-
   ig.state.generateDevice(''); // Set a default value for device generation
-
   try {
     // Load session if exists
     if (await fs.pathExists(sessionPath)) {
-      console.log(chalk.yellow('Session file found. Loading...'));
+      console.log(chalk.yellow.bold('Session file found. Loading...\n'));
       const savedSession = await fs.readJson(sessionPath);
       await ig.state.deserialize(savedSession);
-      console.log(chalk.green('Logged in using saved session.'));
+      console.log(chalk.green.bold('Logged in using saved session.'));
     } else {
-      console.log(chalk.yellow('No session file found. Logging in...'));
+      console.log(chalk.yellow.bold('No session file found. Logging in...'));
 
       // Check if account file exists
       if (!await fs.pathExists(accountPath)) {
@@ -66,7 +63,7 @@ async function Login() {
       const serialized = await ig.state.serialize();
       delete serialized.constants; // Remove constants from serialization
       await fs.outputJson(sessionPath, serialized, { spaces: 2 });
-      console.log(chalk.green('Session saved.'));
+      console.log(chalk.green.bold('Session saved.'));
     }
   } catch (error) {
     console.log(chalk.red('Failed to login or save session.'));

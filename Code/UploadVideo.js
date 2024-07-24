@@ -1,8 +1,8 @@
 "use strict";
 
+const { IgApiClient } = require('instagram-private-api');
 const fs = require('fs-extra');
 const chalk = require('chalk');
-const { IgApiClient } = require('instagram-private-api');
 
 const account = require('../Database/Account.json');
 const ig = new IgApiClient();
@@ -29,7 +29,7 @@ async function UploadVideo(videoPath, caption) {
     // Upload video
     const videoBuffer = await fs.readFile(videoPath);
     const uploadResponse = await ig.publish.video({
-      file: videoBuffer,
+      video: videoBuffer,
       caption: caption,
     });
 
